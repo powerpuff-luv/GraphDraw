@@ -1,9 +1,6 @@
 package gui;
 
-import graphics.CartesianPainter;
-import graphics.Converter;
-import graphics.FunctionPainter;
-import graphics.GraphicsPanel;
+import graphics.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,8 +38,11 @@ public class MainWindow extends JFrame {
 
         FunctionPainter functionPainter = new FunctionPainter(converter);
 
+        ParametricFunctionPainter parametricFunctionPainter = new ParametricFunctionPainter(converter);
+
         mainPanel = new GraphicsPanel(cartesianPainter);
         mainPanel.addPainter(functionPainter);
+        mainPanel.addPainter(parametricFunctionPainter);
         mainPanel.setBackground(Color.white);
 
         mainPanel.addComponentListener(new ComponentAdapter() {
