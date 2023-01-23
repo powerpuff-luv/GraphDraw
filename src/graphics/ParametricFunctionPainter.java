@@ -10,10 +10,11 @@ public class ParametricFunctionPainter implements Painter{
     private double t;
     private double tIncrement;
     private double epsilon;
-    private Color clr = Color.red;
+    private Color clr;
     private Converter cnv;
-    public ParametricFunctionPainter(Converter cnv){
+    public ParametricFunctionPainter(Converter cnv, Color clr){
         this.cnv = cnv;
+        this.clr = clr;
     }
 
     public void paint(Graphics g, int width, int height){
@@ -32,5 +33,10 @@ public class ParametricFunctionPainter implements Painter{
             yPrev = y;
         }
     }
+
+    public void setColor(Color clr) {
+        this.clr = clr;
+    }
+
 }
 

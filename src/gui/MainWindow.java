@@ -4,8 +4,7 @@ import graphics.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame {
 //    private final double xmin = -10.;
@@ -43,8 +42,8 @@ public class MainWindow extends JFrame {
 
         clr1 = new JPanel();
         clr2 = new JPanel();
-        clr1.setBackground(Color.RED);
-        clr2.setBackground(Color.BLUE);
+        clr1.setBackground(Color.BLUE);
+        clr2.setBackground(Color.RED);
 
         ch1 = new JCheckBox("", true);
         ch2 = new JCheckBox("", true);
@@ -84,9 +83,9 @@ public class MainWindow extends JFrame {
 
         CartesianPainter cartesianPainter = new CartesianPainter(converter);
 
-        FunctionPainter functionPainter = new FunctionPainter(converter);
+        FunctionPainter functionPainter = new FunctionPainter(converter, clr1.getBackground());
 
-        ParametricFunctionPainter parametricFunctionPainter = new ParametricFunctionPainter(converter);
+        ParametricFunctionPainter parametricFunctionPainter = new ParametricFunctionPainter(converter, clr2.getBackground());
 
         mainPanel = new GraphicsPanel(cartesianPainter);
 
@@ -103,6 +102,51 @@ public class MainWindow extends JFrame {
                 mainPanel.repaint();
             }
         });
+
+
+        ch1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (ch1.isSelected()) {
+                    mainPanel.addPainter(functionPainter);
+                } else mainPanel.removePainter(functionPainter);
+            }
+        });
+        ch2.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (ch2.isSelected()) {
+                    mainPanel.addPainter(parametricFunctionPainter);
+                } else mainPanel.removePainter(parametricFunctionPainter);
+            }
+        });
+
+
+
+        clr1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Color newColor = JColorChooser.showDialog(MainWindow.this, "Выберите цвет явн. функ.", clr1.getBackground());
+                if (newColor != null) {
+                    clr1.setBackground(newColor);
+                    functionPainter.setColor(newColor);
+                    mainPanel.repaint();
+                }
+            }
+        });
+        clr2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                var newColor = JColorChooser.showDialog(
+                        MainWindow.this, "Выберите цвет парам. функ.", clr2.getBackground());
+                if (newColor != null) {
+                    clr2.setBackground(newColor);
+                    parametricFunctionPainter.setColor(newColor);
+                    mainPanel.repaint();
+                }
+            }
+        });
+
 
         gl.setHorizontalGroup(gl.createSequentialGroup()
                 .addGap(8)

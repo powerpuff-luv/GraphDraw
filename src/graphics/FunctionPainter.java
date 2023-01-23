@@ -3,11 +3,12 @@ package graphics;
 import java.awt.*;
 
 public class FunctionPainter implements Painter {
-    private Color clr = Color.blue;
+    private Color clr;
     private Converter cnv;
 
-    public FunctionPainter(Converter cnv) {
+    public FunctionPainter(Converter cnv, Color clr) {
         this.cnv = cnv;
+        this.clr = clr;
     }
 
     public void paint(Graphics g, int width, int height) {
@@ -20,4 +21,8 @@ public class FunctionPainter implements Painter {
             g.drawLine(cnv.xCrt2Scr(x1Crt), cnv.yCrt2Scr(y1Crt), cnv.xCrt2Scr(x2Crt), cnv.yCrt2Scr(y2Crt));
         }
     }
+    public void setColor(Color clr) {
+        this.clr = clr;
+    }
+
 }
