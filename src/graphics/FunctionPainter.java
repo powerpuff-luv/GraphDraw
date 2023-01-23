@@ -3,7 +3,7 @@ package graphics;
 import java.awt.*;
 
 public class FunctionPainter implements Painter {
-    private Color clr;
+    private Color clr = Color.blue;
     private Converter cnv;
 
     public FunctionPainter(Converter cnv) {
