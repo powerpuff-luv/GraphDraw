@@ -1,6 +1,8 @@
 package gui;
 
 import graphics.*;
+import math.DefiniteFunction;
+import math.ParametricFunction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,9 +85,13 @@ public class MainWindow extends JFrame {
 
         CartesianPainter cartesianPainter = new CartesianPainter(converter);
 
-        FunctionPainter functionPainter = new FunctionPainter(converter, clr1.getBackground());
+        DefiniteFunction df = new DefiniteFunction();
 
-        ParametricFunctionPainter parametricFunctionPainter = new ParametricFunctionPainter(converter, clr2.getBackground(),
+        FunctionPainter functionPainter = new FunctionPainter(converter, clr1.getBackground(), df);
+
+        ParametricFunction pf = new ParametricFunction();
+
+        ParametricFunctionPainter parametricFunctionPainter = new ParametricFunctionPainter(converter, clr2.getBackground(), pf,
                 (double) nmtmins.getValue(), (double) nmtmaxs.getValue());
 
         mainPanel = new GraphicsPanel(cartesianPainter);

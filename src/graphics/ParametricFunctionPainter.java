@@ -1,5 +1,8 @@
 package graphics;
 
+import math.Function;
+import math.ParametricCurve;
+
 import java.awt.*;
 
 public class ParametricFunctionPainter implements Painter{
@@ -12,7 +15,9 @@ public class ParametricFunctionPainter implements Painter{
     private double epsilon;
     private Color clr;
     private Converter cnv;
-    public ParametricFunctionPainter(Converter cnv, Color clr, double tmin, double tmax){
+    private ParametricCurve f;
+    public ParametricFunctionPainter(Converter cnv, Color clr, ParametricCurve f, double tmin, double tmax){
+        this.f = f;
         this.cnv = cnv;
         this.clr = clr;
         tLowerBound = tmin;
@@ -24,12 +29,12 @@ public class ParametricFunctionPainter implements Painter{
         t = tLowerBound;
         tIncrement = (tUpperBound - tLowerBound) / numOfPoints;
         epsilon = tIncrement / 2;
-        double xPrev = -2 * Math.cos(t) + 3 * Math.cos(Math.abs(2 * t / 3));
-        double yPrev = -2 * Math.sin(t) + 3 * Math.sin(Math.abs(2 * t / 3));
+        double xPrev = f.invokeX(t);
+        double yPrev = f.invokeY(t);
         while (tUpperBound - t > epsilon){
             t += tIncrement;
-            double x = -2 * Math.cos(t) + 3 * Math.cos(Math.abs(2 * t / 3));
-            double y = -2 * Math.sin(t) + 3 * Math.sin(Math.abs(2 * t / 3));
+            double x = f.invokeX(t);
+            double y = f.invokeY(t);
             g.drawLine(cnv.xCrt2Scr(xPrev), cnv.yCrt2Scr(yPrev), cnv.xCrt2Scr(x), cnv.yCrt2Scr(y));
             xPrev = x;
             yPrev = y;
@@ -43,6 +48,9 @@ public class ParametricFunctionPainter implements Painter{
     public void setTEdges(Double tmin, Double tmax) {
         tLowerBound = tmin;
         tUpperBound = tmax;
+    }
+    public void setF(ParametricCurve f) {
+        this.f = f;
     }
 }
 
