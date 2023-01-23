@@ -1,11 +1,13 @@
 package gui;
 
+import graphics.GraphicsPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
     private Dimension minSize = new Dimension(600,400);
-    //private GraphicsPanel mainPanel;
+    private GraphicsPanel mainPanel;
     private GroupLayout gl;
     public MainWindow(){
         setSize(minSize);
@@ -13,5 +15,7 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         gl = new GroupLayout(getContentPane());
         setLayout(gl);
+
+
     }
 }
