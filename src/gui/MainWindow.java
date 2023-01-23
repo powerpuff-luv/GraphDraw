@@ -85,7 +85,8 @@ public class MainWindow extends JFrame {
 
         FunctionPainter functionPainter = new FunctionPainter(converter, clr1.getBackground());
 
-        ParametricFunctionPainter parametricFunctionPainter = new ParametricFunctionPainter(converter, clr2.getBackground());
+        ParametricFunctionPainter parametricFunctionPainter = new ParametricFunctionPainter(converter, clr2.getBackground(),
+                (double) nmtmins.getValue(), (double) nmtmaxs.getValue());
 
         mainPanel = new GraphicsPanel(cartesianPainter);
 
@@ -102,6 +103,41 @@ public class MainWindow extends JFrame {
                 mainPanel.repaint();
             }
         });
+
+
+
+        xmins.addChangeListener(e -> {
+            nmxmaxs.setMinimum((Double) nmxmins.getNumber() + 2 * (Double) nmxmaxs.getStepSize());
+            converter.setXEdges((Double) nmxmins.getValue(), (Double) nmxmaxs.getValue());
+            mainPanel.repaint();
+        });
+        xmaxs.addChangeListener(e -> {
+            nmxmins.setMaximum((Double) nmxmaxs.getNumber() - 2 * (Double) nmxmins.getStepSize());
+            converter.setXEdges((Double) nmxmins.getValue(), (Double) nmxmaxs.getValue());
+            mainPanel.repaint();
+        });
+        ymins.addChangeListener(e -> {
+            nmymaxs.setMinimum((Double) nmymins.getNumber() + 2 * (Double) nmymaxs.getStepSize());
+            converter.setYEdges((Double) nmymins.getValue(), (Double) nmymaxs.getValue());
+            mainPanel.repaint();
+        });
+        ymaxs.addChangeListener(e -> {
+            nmymins.setMaximum((Double) nmymaxs.getNumber() - 2 * (Double) nmymins.getStepSize());
+            converter.setYEdges((Double) nmymins.getValue(), (Double) nmymaxs.getValue());
+            mainPanel.repaint();
+        });
+        tmins.addChangeListener(e -> {
+            nmtmaxs.setMinimum((Double) nmtmins.getNumber() + 2 * (Double) nmtmaxs.getStepSize());
+            parametricFunctionPainter.setTEdges((Double) nmtmins.getValue(), (Double) nmtmaxs.getValue());
+            mainPanel.repaint();
+        });
+        tmaxs.addChangeListener(e -> {
+            nmtmins.setMaximum((Double) nmtmaxs.getNumber() - 2 * (Double) nmtmins.getStepSize());
+            parametricFunctionPainter.setTEdges((Double) nmtmins.getValue(), (Double) nmtmaxs.getValue());
+            mainPanel.repaint();
+        });
+
+
 
 
         ch1.addItemListener(new ItemListener() {

@@ -5,16 +5,18 @@ import java.awt.*;
 public class ParametricFunctionPainter implements Painter{
 
     private final int numOfPoints = 1000;
-    private final double tLowerBound = -100;
-    private final double tUpperBound = 100;
+    private double tLowerBound = -100;
+    private double tUpperBound = 100;
     private double t;
     private double tIncrement;
     private double epsilon;
     private Color clr;
     private Converter cnv;
-    public ParametricFunctionPainter(Converter cnv, Color clr){
+    public ParametricFunctionPainter(Converter cnv, Color clr, double tmin, double tmax){
         this.cnv = cnv;
         this.clr = clr;
+        tLowerBound = tmin;
+        tUpperBound = tmax;
     }
 
     public void paint(Graphics g, int width, int height){
@@ -38,5 +40,9 @@ public class ParametricFunctionPainter implements Painter{
         this.clr = clr;
     }
 
+    public void setTEdges(Double tmin, Double tmax) {
+        tLowerBound = tmin;
+        tUpperBound = tmax;
+    }
 }
 
